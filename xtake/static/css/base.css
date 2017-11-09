@@ -10,3 +10,7 @@
         height: 64px;
     }
 }
+
+.my-style-bold {
+    font-weight: 500;
+}
