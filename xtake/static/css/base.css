@@ -1,0 +1,12 @@
+.brand-logo img {
+    height: 56px;
+    padding: 5px 20px;
+    -webkit-filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);
+}
+
+@media only screen and (min-width: 601px) {
+    .brand-logo img {
+        height: 64px;
+    }
+}
