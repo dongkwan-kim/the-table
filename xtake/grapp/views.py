@@ -6,3 +6,7 @@ def base(request):
 
 def home(request):
     return render(request, 'home.html')
+
+def table(request, election, step):
+    pass
+
