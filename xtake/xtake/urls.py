@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from grapp import views as view
+from grapp import views as gr_view
+from session import views as ss_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^base/', view.base),
-    url(r'^$', view.home),
-    url(r'^table/([^/]+)/', view.table),
+    url(r'^base/', gr_view.base),
+    url(r'^$', gr_view.home),
+    url(r'^table/([^/]+)/([^/]+)', gr_view.table),
+
+    url(r'^account/', ss_view.create_account),
 ]
