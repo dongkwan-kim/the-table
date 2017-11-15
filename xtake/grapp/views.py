@@ -13,5 +13,5 @@ def table(request, election, step):
     if user and user.is_authenticated():
         pass
     else:
-        return HttpResponseRedirect('/account/')
+        return HttpResponseRedirect('/account/basic/')
 

@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^$', gr_view.home),
     url(r'^table/([^/]+)/([^/]+)', gr_view.table),
 
-    url(r'^account/', ss_view.create_account),
+    url(r'^account/([^/]+)', ss_view.create_account),
 ]

@@ -7,6 +7,12 @@ class BinaryQuestion(models.Model):
     choice_1 = models.TextField()
     choice_2 = models.TextField()
 
+    def get_choice(self):
+        return (
+            (0, str(self.choice_1)),
+            (1, str(self.choice_2)),
+        )
+
 
 class UserProfile(models.Model):
 

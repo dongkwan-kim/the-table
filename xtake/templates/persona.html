@@ -3,15 +3,26 @@
 {% load materializecss %}
 
 <h1 class="header center grey-text text-darken-2 flow-text my-style-bold">
-    먼저, 계정을 생성해주세요
+    {{header}}
 </h1>
 
 <div class="row">
     <form method="POST" class="col m6 offset-m3 s12">
         {% csrf_token %}
-        {{form.as_p}}
-        <button class="btn waves-effect waves-light" type="submit" name="action">
-            생성
+        {% if is_basic %}
+            {{form.as_p}}
+        {% else %}
+            {% for field in form %}
+            <p>{{field.help_text}}</p>
+            {% for choice in field %}
+            <p>{{ choice.tag }}
+                <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+            </p>
+            {% endfor %}
+            {% endfor %}
+        {% endif %}
+        <button class="btn waves-effect waves-light right" type="submit">
+            {{btext}}
             <i class="material-icons right">send</i>
         </button>
     </form>
