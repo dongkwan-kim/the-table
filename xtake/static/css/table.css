@@ -1,0 +1,36 @@
+.pol-img {
+    width: 100%;
+    margin: .5rem 0 1rem 0;
+}
+
+.pol-text {
+    font-weight: bolder;
+}
+
+.instruction-text {
+    margin: 0;
+    border-color: #5f7d8b;
+}
+
+.instruction-text p {
+    margin: 0;
+}
+
+.against-text {
+    font-weight: lighter;
+    color: #616161;
+}
+
+.promise-text {
+    font-weight: bolder;
+}
+
+.select-promise {
+    padding: 12px!important;
+}
+
+.select-promise .collection {
+    margin: 0;
+}
+
+

@@ -11,7 +11,7 @@ def home(request):
 def table(request, election, step):
     user = request.user
     if user and user.is_authenticated():
-        pass
+        return render(request, 'table.html')
     else:
         return HttpResponseRedirect('/account/basic/')
 
