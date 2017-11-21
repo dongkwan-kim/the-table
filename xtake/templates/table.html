@@ -7,13 +7,13 @@
 <div class="row">
     <div class="col m9 s9">
         <p class="right-align flow-text against-text">
-        <span class="pol-text">???</span> 후보가 <br/>
-        <span class="promise-text">??? ??? ???</span>를 <br/>
+        <span class="pol-text">{{sub_cand.name}}</span> 후보가 <br/>
+        <span class="promise-text">{{sub_promise.title}}</span>를 <br/>
         공약으로 제시했습니다
         </p>
     </div>
     <div class="col m2 s3 center">
-        <img src="{% static "img/placeholder.jpg" %}" class="pol-img">
+        <img src="{{sub_cand.profile}}" class="pol-img">
     </div>
 </div>
 
@@ -22,7 +22,7 @@
         <blockquote class="instruction-text">
             <p class="light left-align flow-text">
             상대 후보의 공약과 관련된,
-            <span class="my-pol-text pol-text">???</span> 후보의 공약을 골라주세요
+            <span class="my-pol-text pol-text">{{main_cand.name}}</span> 후보의 공약을 골라주세요
             </p>
         </blockquote>
     </div>
@@ -30,16 +30,18 @@
 
 <div class="row">
     <div class="col m3 offset-m1 s4 center">
-        <img src="{% static "img/placeholder.jpg" %}" class="pol-img my-pol">
+        <img src="{{main_cand.profile}}" class="pol-img my-pol">
     </div>
 
     <div class="col m7 s8">
         <div class="card grey lighten-4">
             <div class="card-content grey-text text-darken-3 select-promise">
                 <div class="collection">
-                    <a href="#!" class="collection-item">Lorem Ipsum</a>
-                    <a href="#!" class="collection-item">Lorem Ipsum</a>
-                    <a href="#!" class="collection-item">Lorem Ipsum</a>
+                    {% for p in main_promises %}
+                    <a href="#!" class="collection-item">
+                        {{p.title}}
+                    </a>
+                    {% endfor %}
                 </div>
             </div>
             <div class="card-action center-align">

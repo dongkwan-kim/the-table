@@ -23,13 +23,14 @@ class Candidate(models.Model):
 
 
 class Promise(models.Model):
+    pid = models.IntegerField()
     candidate = models.ForeignKey(Candidate)
     title = models.TextField()
     description = models.TextField()
     related = models.ManyToManyField('self', blank=True)
 
     def __str__(self):
-        return self.title
+        return "-".join([str(self.pid), self.title])
 
 
 class UserResponse(models.Model):
