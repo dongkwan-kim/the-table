@@ -2,3 +2,4 @@ Django==1.11.7
 django-materializecss-form==1.0.1
 jsonfield==2.0.2
 pytz==2017.3
+https://github.com/graup/django-prompt-responses/archive/0b25fd3.zip

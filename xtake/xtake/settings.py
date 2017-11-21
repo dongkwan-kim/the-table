@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'materializecssform',
     'grapp',
     'session',
+    'prompt_responses',
 ]
 
 MIDDLEWARE = [
