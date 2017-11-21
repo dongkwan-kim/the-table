@@ -21,6 +21,7 @@ def table(request, election, step):
         else:
             main_cand_name = request.GET.get('main')
             ctx.update(get_step_ctx(election, main_cand_name, step))
+            ctx.update(get_prompt_ctx(ctx['shown_promise'], ctx['selected_promises']))
             return render(request, 'table.html', ctx)
     else:
         return HttpResponseRedirect('/account/basic/')
