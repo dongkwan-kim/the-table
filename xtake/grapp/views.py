@@ -14,9 +14,14 @@ def table(request, election, step):
     user = request.user
     ctx = {}
     if user and user.is_authenticated():
-        main_cand_name = request.GET.get('main')
-        ctx.update(get_step_ctx(election, main_cand_name, step))
-        return render(request, 'table.html', ctx)
+
+        if step == '0':
+            ctx.update(get_choices_ctx(election))
+            return render(request, 'choose.html', ctx)
+        else:
+            main_cand_name = request.GET.get('main')
+            ctx.update(get_step_ctx(election, main_cand_name, step))
+            return render(request, 'table.html', ctx)
     else:
         return HttpResponseRedirect('/account/basic/')
 

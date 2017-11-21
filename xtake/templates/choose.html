@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static "css/table.css" %}">
+
+
+<h1 class="header center grey-text text-darken-2 flow-text my-style-bold">
+    {{election.name}}에서 당신이 지지하는 후보는 누구입니까?
+</h1>
+
+{% if election.help_description %}
+<div class="row">
+    <div class="col m6 offset-m3 s12">
+        <div class="card-panel blue-grey lighten-5">
+            {{election.help_description}}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col s3 offset-s3 center">
+        <img src="{{cand_1.profile}}" class="pol-img">
+        <a href="./1?main={{cand_1.name}}" class="waves-effect waves-light btn">{{cand_1.name}}</a>
+    </div>
+    <div class="col s3 center">
+        <img src="{{cand_2.profile}}" class="pol-img">
+        <a href="./1?main={{cand_2.name}}" class="waves-effect waves-light btn">{{cand_2.name}}</a>
+    </div>
+</div>
+
+{% endblock %}
