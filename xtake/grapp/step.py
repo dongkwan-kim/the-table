@@ -48,5 +48,6 @@ def get_step_ctx(election_name, main_cand_name, step):
         'sub_cand': sub_cand,
         'sub_promise': sub_promise,
         'main_promises': main_promises,
+        'main_promises_json': [p.json() for p in main_promises],
     }
 

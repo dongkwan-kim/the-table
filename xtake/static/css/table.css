@@ -33,4 +33,6 @@
     margin: 0;
 }
 
-
+.benefit-modal-footer {
+    text-align: center!important;
+}

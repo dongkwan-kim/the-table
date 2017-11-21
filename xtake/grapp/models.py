@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from jsonfield import JSONField
+from copy import deepcopy
+import json
 
 
 class Election(models.Model):
@@ -32,6 +34,11 @@ class Promise(models.Model):
 
     def __str__(self):
         return "-".join([str(self.pid), self.title])
+
+    def json(self):
+        dcpy = deepcopy(self.__dict__)
+        del dcpy['_state']
+        return json.dumps(dcpy, ensure_ascii=False)
 
 
 class UserResponse(models.Model):

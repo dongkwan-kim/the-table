@@ -38,7 +38,7 @@
             <div class="card-content grey-text text-darken-3 select-promise">
                 <div class="collection">
                     {% for p in main_promises %}
-                    <a href="#!" class="collection-item">
+                    <a id="pid-{{p.pid}}" href="#benefit-modal" class="collection-item modal-trigger">
                         {{p.title}}
                     </a>
                     {% endfor %}
@@ -51,7 +51,35 @@
     </div>
 </div>
 
+<!-- Modal Structure -->
+<div id="benefit-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4 id="modal-title"></h4>
+        <h5 class="flow-text">이 공약이 당신에게 이득을 준다면, 그 이유는 무엇인가요?</h5>
+        <p id="modal-description"></p>
 
+    </div>
+    <div class="modal-footer benefit-modal-footer">
+        <a href="#!"
+           class="modal-action modal-close waves-effect btn-flat deep-orange-text waves-orange">
+            나에게 이득을 주지 않습니다
+        </a>
+    </div>
+</div>
 
+<script>
+$(document).ready(() => {
+    $('.modal').modal();
+});
+
+var promises = {{main_promises_json|safe}};
+promises = promises.map((x) => JSON.parse(x));
+ 
+$(".modal-trigger").click((e) => {
+   var pid = e.currentTarget.id.split("-")[1];
+   var selected = promises.filter((x) => {return x.pid == pid})[0];
+   $("#modal-title").text(selected.title);
+});
+</script>
 
 {% endblock %}
