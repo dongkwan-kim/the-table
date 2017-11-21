@@ -31,23 +31,23 @@ def get_choices_ctx(election_name):
     }
 
 
-def get_step_ctx(election_name, main_cand_name, step):
+def get_step_ctx(election_name, selected_cand_name, step):
 
     candidates = get_candidates(election_name)
 
     for i, cand in enumerate(candidates):
-        if cand.name == main_cand_name:
-            main_cand = cand
-            sub_cand = candidates[1-i]
+        if cand.name == selected_cand_name:
+            selected_cand = cand
+            shown_cand = candidates[1-i]
 
-    sub_promise = sub_cand.promise_set.get(pid=step)
-    main_promises = get_related_by_order(sub_promise)
+    shown_promise = shown_cand.promise_set.get(pid=step)
+    selected_promises = get_related_by_order(shown_promise)
 
     return {
-        'main_cand': main_cand,
-        'sub_cand': sub_cand,
-        'sub_promise': sub_promise,
-        'main_promises': main_promises,
-        'main_promises_json': [p.json() for p in main_promises],
+        'selected_cand': selected_cand,
+        'shown_cand': shown_cand,
+        'shown_promise': shown_promise,
+        'selected_promises': selected_promises,
+        'selected_promises_json': [p.json() for p in selected_promises],
     }
 
