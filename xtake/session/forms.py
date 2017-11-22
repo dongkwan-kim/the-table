@@ -22,7 +22,7 @@ class QuestionForm(forms.Form):
 
     def add_choice(bq):
         return forms.ChoiceField(
-                choices=bq.get_choice(),
+                choices=bq.get_choices(),
                 help_text=("Q" + str(bq.num)),
                 widget=forms.RadioSelect()
             )

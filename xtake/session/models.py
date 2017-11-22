@@ -7,11 +7,14 @@ class BinaryQuestion(models.Model):
     choice_1 = models.TextField()
     choice_2 = models.TextField()
 
-    def get_choice(self):
+    def get_choices(self):
         return (
             (0, str(self.choice_1)),
             (1, str(self.choice_2)),
         )
+
+    def get_choice(self, idx):
+        return dict(self.get_choices())[int(idx)]
 
 
 class UserProfile(models.Model):
@@ -101,5 +104,11 @@ class UserProfile(models.Model):
     def set_answers(self, lst):
         self.answers = ",".join([str(x) for x in lst])
 
-
+    def get_value(self, name):
+        if name == 'answers':
+            questions = BinaryQuestion.objects.all()
+            answers = self.answers.split(',')
+            return [q.get_choice(a) for (q, a) in zip(questions, answers)]
+        else:
+            return eval('self.get_{0}_display()'.format(name))
 
