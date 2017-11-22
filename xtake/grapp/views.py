@@ -29,6 +29,12 @@ def table(request, election, step):
         else:
             main_cand_name = request.GET.get('main')
             ctx.update(get_step_ctx(election, main_cand_name, step))
+            if ctx['finished']:
+                return HttpResponseRedirect('/result/candidates')
+
             ctx.update(get_prompt_ctx(request, ctx['shown_promise'], ctx['selected_promises']))
             return render(request, 'table.html', ctx)
+
+def result(request, vis_kind):
+    raise NotImplementedError
 

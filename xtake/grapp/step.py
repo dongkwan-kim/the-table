@@ -34,6 +34,9 @@ def get_step_ctx(election_name, selected_cand_name, step):
 
     election, candidates = get_elec_and_cand(election_name)
 
+    if int(step) > election.game_step:
+        return { 'finished': True }
+
     for i, cand in enumerate(candidates):
         if cand.name == selected_cand_name:
             selected_cand = cand
@@ -43,6 +46,7 @@ def get_step_ctx(election_name, selected_cand_name, step):
     selected_promises = get_related_by_order(shown_promise)
 
     return {
+        'finished': False,
         'selected_cand': selected_cand,
         'shown_cand': shown_cand,
         'shown_promise': shown_promise,

@@ -108,7 +108,7 @@ class UserProfile(models.Model):
         if name == 'answers':
             questions = BinaryQuestion.objects.all()
             answers = self.answers.split(',')
-            return [q.get_choice(a) for (q, a) in zip(questions, answers)]
+            return [(q.num, q.get_choice(a)) for (q, a) in zip(questions, answers)]
         else:
             return eval('self.get_{0}_display()'.format(name))
 

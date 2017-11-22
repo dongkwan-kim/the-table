@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^base/', gr_view.base),
     url(r'^$', gr_view.home),
     url(r'^table/([^/]+)/([^/]+)', gr_view.table),
+    url(r'^result/([^/]+)', gr_view.result),
 
     url(r'^account/([^/]+)', ss_view.create_account),
 ]
