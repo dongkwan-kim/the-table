@@ -14,8 +14,12 @@ def home(request):
 def table(request, election, step):
     user = request.user
     ctx = {}
-    if user and user.is_authenticated():
+    if not (user and user.is_authenticated()):
+        return HttpResponseRedirect('/account/basic/')
 
+    if request.method == "POST":
+        raise NotImplementedError
+    else:
         if step == '0':
             ctx.update(get_choices_ctx(election))
             return render(request, 'choose.html', ctx)
@@ -24,6 +28,4 @@ def table(request, election, step):
             ctx.update(get_step_ctx(election, main_cand_name, step))
             ctx.update(get_prompt_ctx(request, ctx['shown_promise'], ctx['selected_promises']))
             return render(request, 'table.html', ctx)
-    else:
-        return HttpResponseRedirect('/account/basic/')
 
