@@ -7,7 +7,7 @@ def get_related_by_order(target_promise):
     return r
 
 
-def get_candidates(election_name):
+def get_elec_and_cand(election_name):
     election = Election.objects.get(name=election_name)
     if election:
         candidates = election.candidate_set.all()
@@ -15,14 +15,13 @@ def get_candidates(election_name):
         if len(candidates) != 2:
             raise Exception("This version now only supports two-party system")
 
-        return list(candidates)
+        return (election, list(candidates))
     else:
         return None
 
 
 def get_choices_ctx(election_name):
-    election = Election.objects.get(name=election_name)
-    candidates = get_candidates(election_name)
+    election, candidates = get_elec_and_cand(election_name)
     shuffle(candidates)
     return {
         'cand_1': candidates[0],
@@ -33,7 +32,7 @@ def get_choices_ctx(election_name):
 
 def get_step_ctx(election_name, selected_cand_name, step):
 
-    candidates = get_candidates(election_name)
+    election, candidates = get_elec_and_cand(election_name)
 
     for i, cand in enumerate(candidates):
         if cand.name == selected_cand_name:
