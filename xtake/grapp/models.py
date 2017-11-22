@@ -9,6 +9,7 @@ class Election(models.Model):
     name = models.CharField(max_length=20)
     year = models.IntegerField()
     help_description = models.TextField()
+    game_step = models.IntegerField()
 
     def __str__(self):
         return self.name
