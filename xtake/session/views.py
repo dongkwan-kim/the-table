@@ -25,7 +25,7 @@ def create_account(request, step):
         else:
             profile = UserProfile.objects.filter(user=request.user)[0]
             qnum = BinaryQuestion.objects.all().count()
-            answers = [request.POST.get('q{0}'.format(i + 1)) for i in range(qnum)]
+            answers = [request.POST.get('q{0}'.format(i)) for i in range(qnum)]
             profile.set_answers(answers)
             profile.save()
             return HttpResponseRedirect('/table/pilot/0')
