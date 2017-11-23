@@ -5,7 +5,7 @@ from prompt_responses.models import Prompt
 
 class UserResponseForm(forms.Form):
 
-    def __init__(self, request):
+    def __init__(self, request, shown_promise):
 
         super(UserResponseForm, self).__init__()
 
@@ -20,6 +20,14 @@ class UserResponseForm(forms.Form):
             required=False,
             widget=forms.CheckboxSelectMultiple,
             choices=self.get_binary_questions(),
+        )
+        self.fields['shown_promise'] = forms.CharField(
+            initial=shown_promise.id,
+            widget=forms.HiddenInput(),
+        )
+        self.fields['selected_promise'] = forms.CharField(
+            initial=-1,
+            widget=forms.HiddenInput(),
         )
 
     def get_demographics(self):

@@ -38,7 +38,7 @@
             <div class="card-content grey-text text-darken-3 select-promise">
                 <div class="collection">
                     {% for p in selected_promises %}
-                    <a id="pid-{{p.pid}}" href="#benefit-modal" class="collection-item modal-trigger">
+                    <a id="promise-{{p.id}}" href="#benefit-modal" class="collection-item modal-trigger">
                         {{p.title}}
                     </a>
                     {% endfor %}
@@ -60,7 +60,7 @@
         <form method="POST">
             {% csrf_token %}
             <div class="row">
-                {% for field in prompt_form %}
+                {% for field in prompt_form.visible_fields %}
                 <div class="col s6">
                     <p>{{field.help_text}}</p>
                     {% for choice in field %}
@@ -69,6 +69,9 @@
                     </p>
                     {% endfor %}
                 </div>
+                {% endfor %}
+                {% for hidden in prompt_form.hidden_fields %}
+                {{hidden}}
                 {% endfor %}
             </div>
 
@@ -97,9 +100,10 @@ var promises = {{selected_promises_json|safe}};
 promises = promises.map((x) => JSON.parse(x));
 
 $(".modal-trigger").click((e) => {
-    var pid = e.currentTarget.id.split("-")[1];
-    var selected = promises.filter((x) => {return x.pid == pid})[0];
+    var id = e.currentTarget.id.split("-")[1];
+    var selected = promises.filter((x) => {return x.id == id})[0];
     $("#modal-title").text(selected.title);
+    $("input[name='selected_promise']").val(selected.id)
 });
 </script>
 

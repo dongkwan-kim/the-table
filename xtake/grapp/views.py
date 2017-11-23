@@ -5,6 +5,9 @@ from grapp.step import *
 from grapp.prompt import *
 
 
+DEFAULT_RESULT = 'candidates'
+
+
 def base(request):
     return render(request, 'base.html')
 
@@ -31,11 +34,16 @@ def table(request, election, step):
             main_cand_name = request.GET.get('main')
             ctx.update(get_step_ctx(election, main_cand_name, step))
             if ctx['finished']:
-                return HttpResponseRedirect('/result/candidates')
+                return HttpResponseRedirect('/result/{0}?kind={1}'.format(election, DEFAULT_RESULT))
 
-            ctx.update(get_prompt_ctx(request, ctx['shown_promise'], ctx['selected_promises']))
+            ctx.update(get_prompt_ctx(request, ctx['shown_promise']))
             return render(request, 'table.html', ctx)
 
-def result(request, vis_kind):
-    raise NotImplementedError
+def result(request, election):
+
+    result_kind = request.GET.get('kind')
+    template = 'result-{0}.html'.format(result_kind)
+    ctx = get_result_ctx(request, election)
+
+    return render(request, template, ctx)
 

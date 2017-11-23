@@ -54,3 +54,11 @@ def get_step_ctx(election_name, selected_cand_name, step):
         'selected_promises_json': [p.json() for p in selected_promises],
     }
 
+
+def get_result_ctx(request, election_name):
+
+    election, candidates = get_elec_and_cand(election_name)
+
+    return {}
+
+
