@@ -42,28 +42,3 @@ class Promise(models.Model):
         del dcpy['_state']
         return json.dumps(dcpy, ensure_ascii=False)
 
-
-class UserResponse(models.Model):
-    user = models.ForeignKey(User)
-    shown_promise = models.ForeignKey(
-        Promise,
-        related_name='shown_promise',
-    )
-    selected_promise = models.ForeignKey(
-        Promise,
-        related_name='selected_promise',
-    )
-    is_advantage = models.BooleanField()
-    message = models.TextField()
-    keywords = JSONField()
-
-    def add_keywords(self, msg_val, msg_key="new"):
-        pass
-
-    def __str__(self):
-        return "-".join([
-            str(self.user),
-            str(self.is_advantage),
-            str(self.selected_promise)])
-
-
