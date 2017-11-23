@@ -17,6 +17,7 @@
 }
 
 .against-text {
+    font-size: smaller;
     font-weight: lighter;
     color: #616161;
 }
@@ -39,4 +40,9 @@
 
 .radio-elem {
     margin-right: 15px;
+}
+
+#modal-title {
+    margin-bottom: 25px;
+    text-align: center;
 }
