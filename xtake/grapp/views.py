@@ -18,6 +18,7 @@ def table(request, election, step):
         return HttpResponseRedirect('/account/basic/')
 
     if request.method == "POST":
+        save_user_response(request)
         main_cand_name = request.GET.get('main')
         next_path = './{0}?main={1}'.format(int(step) + 1, main_cand_name)
         return HttpResponseRedirect(next_path)
