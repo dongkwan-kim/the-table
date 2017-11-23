@@ -3,7 +3,7 @@ from random import shuffle
 
 
 def get_related_by_order(target_promise):
-    r = target_promise.related.all()
+    r = target_promise.related.exclude(candidate=target_promise.candidate)
     return r
 
 
