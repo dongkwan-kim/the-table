@@ -20,16 +20,22 @@ class UserProfileForm(forms.ModelForm):
 
 class QuestionForm(forms.Form):
 
-    def add_choice(bq):
+    def __init__(self):
+
+        super(QuestionForm, self).__init__()
+
+        bq_list = BinaryQuestion.objects.all()
+
+        for i, bq in enumerate(bq_list):
+            name = 'q{0}'.format(str(i))
+            self.fields[name] = self.add_choice(bq)
+
+    def add_choice(self, bq):
         return forms.ChoiceField(
                 choices=bq.get_choices(),
                 help_text=("Q" + str(bq.num)),
                 widget=forms.RadioSelect()
             )
-
-    bq_list = BinaryQuestion.objects.all()
-    q1 = add_choice(bq_list[0])
-    q2 = add_choice(bq_list[1])
 
     def header(self):
         return '두 문장 중 어느 쪽이 당신을 더 잘 설명하나요?'
