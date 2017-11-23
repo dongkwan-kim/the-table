@@ -7,12 +7,13 @@ import json
 
 class Election(models.Model):
     name = models.CharField(max_length=20)
+    ko_name = models.CharField(max_length=20)
     year = models.IntegerField()
     help_description = models.TextField()
     game_step = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return self.ko_name
 
 
 class Candidate(models.Model):
