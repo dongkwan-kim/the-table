@@ -1,6 +1,7 @@
 from django.contrib import admin
 from grapp.models import Promise, Candidate, Election
 
+
 def list_display_all(cls):
     return [x.name for x in cls._meta.fields if x.name != 'id']
 
@@ -18,5 +19,3 @@ class CandidateAdmin(admin.ModelAdmin):
 @admin.register(Election)
 class ElectionAdmin(admin.ModelAdmin):
     list_display = list_display_all(Election)
-
-

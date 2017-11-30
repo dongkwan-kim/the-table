@@ -41,4 +41,3 @@ class Promise(models.Model):
         dcpy = deepcopy(self.__dict__)
         del dcpy['_state']
         return json.dumps(dcpy, ensure_ascii=False)
-

@@ -15,7 +15,7 @@ def get_elec_and_cand(election_name):
         if len(candidates) != 2:
             raise Exception("This version now only supports two-party system")
 
-        return (election, list(candidates))
+        return election, list(candidates)
     else:
         return None
 
@@ -35,8 +35,9 @@ def get_step_ctx(election_name, selected_cand_name, step):
     election, candidates = get_elec_and_cand(election_name)
 
     if int(step) > election.game_step:
-        return { 'finished': True }
+        return {'finished': True}
 
+    (shown_cand, selected_cand) = (None, None)
     for i, cand in enumerate(candidates):
         if cand.name == selected_cand_name:
             selected_cand = cand
@@ -60,5 +61,3 @@ def get_result_ctx(request, election_name):
     election, candidates = get_elec_and_cand(election_name)
 
     return {}
-
-

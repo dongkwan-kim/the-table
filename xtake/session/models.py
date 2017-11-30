@@ -111,4 +111,3 @@ class UserProfile(models.Model):
             return [(q.num, q.get_choice(a)) for (q, a) in zip(questions, answers)]
         else:
             return eval('self.get_{0}_display()'.format(name))
-

@@ -41,5 +41,3 @@ def create_account(request, step):
             'btext': form.btext(),
         }
         return render(request, 'persona.html', ctx)
-
-

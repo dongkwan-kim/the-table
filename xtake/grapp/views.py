@@ -11,8 +11,10 @@ DEFAULT_RESULT = 'candidates'
 def base(request):
     return render(request, 'base.html')
 
+
 def home(request):
     return render(request, 'home.html')
+
 
 def table(request, election, step):
     user = request.user
@@ -39,6 +41,7 @@ def table(request, election, step):
             ctx.update(get_prompt_ctx(request, ctx['shown_promise']))
             return render(request, 'table.html', ctx)
 
+
 def result(request, election):
 
     result_kind = request.GET.get('kind')
@@ -46,4 +49,3 @@ def result(request, election):
     ctx = get_result_ctx(request, election)
 
     return render(request, template, ctx)
-
