@@ -7,7 +7,7 @@
 </h1>
 
 <div class="row">
-    <form method="POST" class="col m6 offset-m3 s12">
+    <form method="POST" class="col m8 offset-m2 s12">
         {% csrf_token %}
         {% if not is_choice %}
             {{form.as_p}}
