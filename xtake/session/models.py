@@ -83,6 +83,16 @@ class UserProfile(models.Model):
         (7, '대학원 (박사과정)'),
     )
 
+    MARRIAGE_CHOICES = (
+        (None, '선택해주세요'),
+        (0, '기혼'),
+        (1, '사별'),
+        (2, '이혼'),
+        (3, '별거'),
+        (4, '미혼'),
+        (5, '동거'),
+    )
+
     PA_CHOICES = (
         (None, '선택해주세요'),
         (0, '매우 진보적'),
@@ -97,6 +107,7 @@ class UserProfile(models.Model):
     occupation = models.IntegerField(choices=OCCUPATION_CHOICES, verbose_name='현재 직업')
     income = models.IntegerField(choices=INCOME_CHOICES, verbose_name='월소득')
     education = models.IntegerField(choices=EDUCATION_CHOICES, verbose_name='최종 학력')
+    marriage = models.IntegerField(choices=MARRIAGE_CHOICES, verbose_name='결혼 상태')
     political_affinity = models.IntegerField(choices=PA_CHOICES, verbose_name='정치 성향')
 
     # csv
