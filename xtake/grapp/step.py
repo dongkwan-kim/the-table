@@ -47,6 +47,10 @@ def get_step_ctx(election_name, selected_cand_name, step):
     selected_promises = get_related_by_order(shown_promise)
 
     return {
+        'stage_info': {
+            'current': int(step),
+            'total': election.game_step,
+        },
         'finished': False,
         'selected_cand': selected_cand,
         'shown_cand': shown_cand,
