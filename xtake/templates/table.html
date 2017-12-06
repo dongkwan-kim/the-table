@@ -75,7 +75,7 @@
             </div>
             <div class="row">
                 <h5 class="flow-text">{{response_prompt}}</h5>
-                {% else %}
+            {% elif field.name != "open_ended" %}
                 <div class="col s6">
                     {% for choice in field %}
                     <p>{{ choice.tag }}
@@ -83,8 +83,17 @@
                     </p>
                     {% endfor %}
                 </div>
-                {% endif %}
-                {% endfor %}
+            {% else %}
+                <div class="col s12">
+                    <div class="input-field {{ classes.label }}" data-length="10">
+                        {{ field }}
+                        <label class="{{ classes.label }} {% if field.field.required %}{{ form.required_css_class }}{% endif %}" for="{{ field.auto_id }}">
+                            {{ field.help_text|safe }}
+                        </label>
+                    </div>
+                </div>
+            {% endif %}
+            {% endfor %}
             </div>
             {% for hidden in response_prompt_form.hidden_fields %}
             {{hidden}}

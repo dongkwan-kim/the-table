@@ -21,7 +21,7 @@ def save_user_response(request):
 
     response_prompt = Prompt.objects.get(id=1)
     response_json = dict([(k, request.POST.getlist(k))
-                          for k in ['demographics', 'answers', 'shown_promise']])
+                          for k in ['demographics', 'answers', 'shown_promise', 'open_ended']])
 
     response_prompt.create_response(
         user=request.user,

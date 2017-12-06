@@ -26,6 +26,11 @@ class UserResponseForm(forms.Form):
             widget=forms.CheckboxSelectMultiple,
             choices=self.get_binary_questions(),
         )
+        self.fields['open_ended'] = forms.CharField(
+            required=False,
+            help_text="선택지에 적당한 이유가 없다면, 이곳에 간단히 적어주세요",
+            widget=forms.TextInput(),
+        )
         self.fields['shown_promise'] = forms.CharField(
             initial=shown_promise.id,
             widget=forms.HiddenInput(),
