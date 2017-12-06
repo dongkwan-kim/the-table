@@ -13,7 +13,7 @@ class UserResponseForm(forms.Form):
 
         self.fields['stake'] = forms.ChoiceField(
             choices=self.get_stakes(),
-            help_text="이 공약은 당신에게 이익을 주나요, 손해를 주나요?",
+            help_text="지지여부와는 상관없이,<br/> 이 공약은 당신에게 이익을 주나요, 손해를 주나요?",
             widget=forms.RadioSelect()
         )
         self.fields['demographics'] = forms.MultipleChoiceField(
@@ -41,11 +41,7 @@ class UserResponseForm(forms.Form):
         )
 
     def get_stakes(self):
-        return (
-            (1, '이익을 준다'),
-            (-1, '손해를 준다'),
-            (0, '관계 없다'),
-        )
+        return [(i, str(i)) for i in range(1, 6)]
 
     def get_demographics(self):
         fields = [(f.verbose_name, f.name, self.profile.get_value(f.name))

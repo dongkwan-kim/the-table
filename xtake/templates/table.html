@@ -62,14 +62,16 @@
             {% for field in response_prompt_form.visible_fields %}
             {% if field.name == "stake" %}
             <div class="row">
-                <h5 class="flow-text">{{field.help_text}}</h5>
+                <h5 class="help-text flow-text">{{field.help_text|safe}}</h5>
                 <div class="col s12">
                     <p>
+                    <div class="chip">손해를 준다</div>
                     {% for choice in field %}
                     <span class="radio-elem">{{ choice.tag }}
                         <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
                     </span>
                     {% endfor %}
+                    <div class="chip">이익을 준다</div>
                     </p>
                 </div>
             </div>

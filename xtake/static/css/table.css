@@ -26,6 +26,10 @@
     font-weight: bolder;
 }
 
+.help-text {
+    line-height: 1.4;
+}
+
 .select-promise {
     padding: 12px!important;
 }
