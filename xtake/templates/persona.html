@@ -13,7 +13,7 @@
             {{form.as_p}}
         {% else %}
             {% for field in form %}
-            <p>{{field.help_text}}</p>
+            <p>{{field.help_text|safe}}</p>
             {% for choice in field %}
             <p>{{ choice.tag }}
                 <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
