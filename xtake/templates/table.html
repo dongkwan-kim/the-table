@@ -58,11 +58,14 @@
     <form method="POST">
         <div class="modal-content">
             <h5 id="modal-title"></h5>
+            <hr/>
             {% csrf_token %}
             {% for field in response_prompt_form.visible_fields %}
             {% if field.name == "stake" %}
             <div class="row">
-                <h5 class="help-text flow-text">{{field.help_text|safe}}</h5>
+                <div class="col s12">
+                    <h5 class="help-text flow-text">{{field.help_text|safe}}</h5>
+                </div>
                 <div class="col s12">
                     <p>
                     <div class="chip">손해를 준다</div>
@@ -76,7 +79,9 @@
                 </div>
             </div>
             <div class="row">
-                <h5 class="flow-text">{{response_prompt}}</h5>
+                <div class="col s12">
+                    <h5 class="flow-text">{{response_prompt}}</h5>
+                </div>
             {% elif field.name != "open_ended" %}
                 <div class="col s6">
                     {% for choice in field %}
