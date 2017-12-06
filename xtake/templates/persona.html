@@ -9,7 +9,7 @@
 <div class="row">
     <form method="POST" class="col m6 offset-m3 s12">
         {% csrf_token %}
-        {% if is_basic %}
+        {% if not is_choice %}
             {{form.as_p}}
         {% else %}
             {% for field in form %}

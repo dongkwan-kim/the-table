@@ -1,6 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-
 from grapp.step import *
 from grapp.prompt import *
 
@@ -16,11 +16,9 @@ def home(request):
     return render(request, 'home.html')
 
 
+@login_required()
 def table(request, election, step):
-    user = request.user
     ctx = {}
-    if not (user and user.is_authenticated()):
-        return HttpResponseRedirect('/account/basic/')
 
     if request.method == "POST":
         save_user_response(request)

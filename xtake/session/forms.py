@@ -2,17 +2,25 @@ from django import forms
 from session.models import UserProfile, BinaryQuestion
 
 
-class UserProfileForm(forms.ModelForm):
-
-    class Meta:
-        model = UserProfile
-        fields = ['user_id', 'password', 'age', 'gender', 'occupation',
-                  'income', 'education', 'political_affinity']
+class UserSignupForm(forms.Form):
     user_id = forms.CharField(label='아이디')
     password = forms.CharField(widget=forms.PasswordInput(), label='패스워드')
 
     def header(self):
         return '먼저, 계정을 생성해주세요'
+
+    def btext(self):
+        return '다음'
+
+
+class UserProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ['age', 'gender', 'occupation', 'income', 'education', 'political_affinity']
+
+    def header(self):
+        return '자신에 대해 조금 더 자세히 알려주세요'
 
     def btext(self):
         return '다음'
