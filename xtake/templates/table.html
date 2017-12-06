@@ -64,7 +64,10 @@
             {% if field.name == "stake" %}
             <div class="row">
                 <div class="col s12">
-                    <h5 class="help-text flow-text">{{field.help_text|safe}}</h5>
+                    <h5 class="help-text flow-text">
+                        {{field.help_text|safe}}
+                        <span class="is-required orange-text">*</span>
+                    </h5>
                 </div>
                 <div class="col s12">
                     <p>
