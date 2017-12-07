@@ -44,6 +44,6 @@ def result(request, election):
 
     result_kind = request.GET.get('kind')
     template = 'result-{0}.html'.format(result_kind)
-    ctx = get_result_ctx(request, election)
+    ctx = get_result_ctx(request, election, result_kind)
 
     return render(request, template, ctx)

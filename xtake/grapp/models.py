@@ -26,6 +26,9 @@ class Candidate(models.Model):
     def __str__(self):
         return "-".join([self.name, self.party, self.region])
 
+    def __lt__(self, other):
+        return self.id < other.id
+
 
 class Promise(models.Model):
     pid = models.IntegerField()
