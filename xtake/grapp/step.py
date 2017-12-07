@@ -68,7 +68,7 @@ def get_step_ctx(election_name, selected_cand_name, step):
 
 def get_verbose_stake(stake):
     stake = int(stake)
-    if stake < 2:
+    if stake <= 2:
         verbose_stake = 'disadvantage'
     elif stake >= 4:
         verbose_stake = 'advantage'
@@ -178,8 +178,8 @@ def get_result_candidates_ctx(candidates, responses, the_user):
                 e['persona_jaccard'] = adv_jaccard if adv_jaccard > disadv_jaccard else -disadv_jaccard
 
             # Refine personas to string
-            e['advantage_personas'] = ', '.join(eap)
-            e['disadvantage_personas'] = ', '.join(diseap)
+            e['advantage_personas'] = ', '.join(set(eap))
+            e['disadvantage_personas'] = ', '.join(set(diseap))
 
         promises.append(dict(promise_corr=1, list=pemt_list))
 
