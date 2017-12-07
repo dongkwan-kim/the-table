@@ -39,8 +39,8 @@ class QuestionForm(forms.Form):
             name = 'q{0}'.format(str(i))
             self.fields[name] = self.add_choice(bq)
 
-        consent_href = "#!"
-        consent_text = '<br/><a href="{0}">인간대상연구동의서</a>'.format(consent_href) +\
+        consent_href = "https://drive.google.com/file/d/1dvI7f4speZJulb823hDwmuxk81hfRgZW/view"
+        consent_text = '<br/><a target="_blank" href="{0}">인간대상연구동의서</a>'.format(consent_href) +\
                        '를 읽고 동의하신 후에 계정을 생성할 수 있습니다.'
         self.fields['consent'] = forms.ChoiceField(
             required=True,
