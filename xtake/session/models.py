@@ -1,5 +1,7 @@
+from copy import deepcopy
 from django.contrib.auth.models import User
 from django.db import models
+from grapp.models import Election, Candidate, Promise
 
 
 class BinaryQuestion(models.Model):
@@ -93,7 +95,7 @@ class UserProfile(models.Model):
         (5, '동거'),
     )
 
-    PA_CHOICES = (
+    POLITICAL_AFFINITY_CHOICES = (
         (None, '선택해주세요'),
         (0, '매우 진보적'),
         (1, '다소 진보적'),
@@ -108,7 +110,7 @@ class UserProfile(models.Model):
     income = models.IntegerField(choices=INCOME_CHOICES, verbose_name='월소득')
     education = models.IntegerField(choices=EDUCATION_CHOICES, verbose_name='최종 학력')
     marriage = models.IntegerField(choices=MARRIAGE_CHOICES, verbose_name='결혼 상태')
-    political_affinity = models.IntegerField(choices=PA_CHOICES, verbose_name='정치 성향')
+    political_affinity = models.IntegerField(choices=POLITICAL_AFFINITY_CHOICES, verbose_name='정치 성향')
 
     # csv
     answers = models.TextField()
@@ -129,3 +131,103 @@ class UserProfile(models.Model):
             return [(q.num, q.get_choice(a)) for (q, a) in zip(questions, answers)]
         else:
             return eval('self.get_{0}_display()'.format(name))
+
+    def get_values(self, keys=None):
+        """
+        :param keys: list
+        :return: list
+        """
+        if keys is None:
+            keys = self.get_persona_dict().keys()
+
+        answers_dict = dict(self.get_value('answers'))
+
+        r = []
+        for k in keys:
+            if k.isnumeric():
+                r.append(answers_dict[int(k)])
+            else:
+                r.append(self.get_value(k))
+        return r
+
+    def get_flatten_values(self, keys=None):
+        r = []
+        for e in self.get_values(keys):
+            if isinstance(e, (list,)):
+                r += [t[1] for t in e]
+            else:
+                r.append(e)
+        return r
+
+    @staticmethod
+    def is_ordered_data(name):
+        return name in ['age', 'income', 'education', 'political_affinity']
+
+    def get_persona_dict(self):
+        """
+        :return: dictionary
+        {
+            'age': 5,
+            'gender': 0,
+            'occupation': 2,
+            'income': 2,
+            'education': 4,
+            'marriage': 2,
+            'political_affinity': 2,
+            'answers': '0,0'
+        }
+        """
+        dcpy = deepcopy(self.__dict__)
+        for f in ['_state', 'id', 'user_id']:
+            del dcpy[f]
+        return dcpy
+
+    def get_choices_dict(self, name: str):
+        """
+        :param name: string
+        :return: dictionary
+        {0: '~ 19', 1: '20 ~ 29', 2: '30 ~ 39', 3: '40 ~ 49', 4: '50 ~ 59', 5: '60 ~ 69', 6: '70 ~'} for 'age'
+        """
+        if name == 'answers':
+            lst = [int(x) for x in self.answers.split(",")]
+            choices_dict = dict(enumerate(lst))
+        else:
+            choices_dict = dict(eval('self.{0}_CHOICES'.format(name.upper())))
+            del choices_dict[None]
+        return choices_dict
+
+    def get_iv_dict(self):
+        """
+        :return: dictionary
+        {
+            'age': [5],
+            'gender': [1, 0, 0],
+            'occupation': [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            'income': [2],
+            'education': [4],
+            'marriage': [0, 0, 1, 0, 0, 0],
+            'political_affinity': [2],
+            'answers': [0, 0]
+        }
+        """
+        persona_fields = self.get_persona_dict()
+        for k, v in persona_fields.items():
+            if k == 'answers':
+                persona_fields[k] = [int(x) for x in self.answers.split(',')]
+            elif self.is_ordered_data(k):
+                persona_fields[k] = [v]
+            else:
+                dimension = len(self.get_choices_dict(k))
+                lst = [0] * dimension
+                lst[v] = 1
+                persona_fields[k] = lst
+        return persona_fields
+
+    def get_iv(self):
+        """
+        :return: list [5, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 0, 0, 1, 0, 0, 0, 2, 0, 0]
+        """
+        empty = []
+        for lst in self.get_iv_dict().values():
+            empty += lst
+        return empty
