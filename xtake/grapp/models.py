@@ -21,7 +21,7 @@ class Candidate(models.Model):
     party = models.CharField(max_length=10)
     election = models.ForeignKey(Election)
     region = models.CharField(max_length=20)
-    profile = models.URLField()
+    profile = models.CharField(max_length=200)
 
     def __str__(self):
         return "-".join([self.name, self.party, self.region])
