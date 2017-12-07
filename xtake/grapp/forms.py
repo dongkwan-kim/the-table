@@ -13,7 +13,7 @@ class UserResponseForm(forms.Form):
 
         self.fields['stake'] = forms.ChoiceField(
             choices=self.get_stakes(),
-            help_text="지지여부와는 상관없이,<br/> 이 공약은 당신에게 이익을 주나요, 손해를 주나요?",
+            help_text="이 공약을 지지하는지와는 상관없이,<br/> 이것이 직접적으로 당신에게 이익을 주나요, 손해를 주나요?",
             widget=forms.RadioSelect()
         )
         self.fields['demographics'] = forms.MultipleChoiceField(
