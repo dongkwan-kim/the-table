@@ -86,9 +86,10 @@ def get_result_ctx(request, election_name, result_kind):
     response_prompt = Prompt.objects.get(id=1)
     responses = response_prompt.responses.all()
 
-    r = None
+    r = {}
     if result_kind == 'candidates':
-        r = get_result_candidates_ctx(candidates, responses, user)
+        r.update(get_result_candidates_ctx(candidates, responses, user))
+        r.update({'election': election, 'user': user})
 
     return r
 

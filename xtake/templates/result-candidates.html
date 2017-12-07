@@ -4,6 +4,10 @@
 
 <link rel="stylesheet" href="{% static "css/result.css" %}">
 
+<h1 class="header center grey-text text-darken-2 flow-text my-style-bold">
+    {{user}}님과 {{election}} 공약과의 이해관계 
+</h1>
+
 <div class="row">
     {% for cand in candidates %}
     <div class="col m2 {% if forloop.counter == 1 %}offset-m4{% endif %} s6 center">
@@ -17,6 +21,8 @@
 <div class="row">
     {% for p in pair.list %}
     <div class="col s6">
+
+        <!-- Panel Color -->
         {% if p.persona_jaccard is None or p.persona_jaccard == 0 %}
         <div class="card blue-grey lighten-5">
         {% elif p.persona_jaccard < 0 %}
@@ -24,27 +30,37 @@
         {% else %}
         <div class="card green lighten-5">
         {% endif %}
+
             <div class="card-content">
+                <!-- Badge -->
+                {% if p.persona_jaccard > 0 %}
+                <span class="badge green white-text">나에게 이익</span>
+                {% elif p.persona_jaccard < 0 %}
+                <span class="badge deep-orange white-text">나에게 손해</span>
+                {% endif %}
+
                 <span class="card-title">{{p.promise.title}}</span>
                 <p>{{p.promise.description}}</p>
             </div>
             <div class="card-action">
+                <!-- Other -->
                 {% if p.advantage_personas %}
-                <a class="persona-chip chip tooltipped green-text"
+                <span class="persona-chip chip tooltipped green-text"
                      data-position="top" data-delay="50" data-tooltip="{{p.advantage_personas}}">
                 {% else %}
-                <a class="chip grey-text">
+                <span class="chip grey-text">
                 {% endif %}
                     이익을 보는 집단
-                </a>
+                </span>
                 {% if p.disadvantage_personas %}
-                <a class="persona-chip chip tooltipped deep-orange-text"
+                <span class="persona-chip chip tooltipped deep-orange-text"
                      data-position="top" data-delay="50" data-tooltip="{{p.disadvantage_personas}}">
                 {% else %}
-                <a class="chip grey-text">
+                <span class="chip grey-text">
                 {% endif %}
                     손해를 보는 집단
-                </a>
+                </span>
+
             </div>
         </div>
     </div>
