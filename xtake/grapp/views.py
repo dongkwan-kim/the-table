@@ -22,6 +22,13 @@ def about(request):
 
 @login_required()
 def table(request, election, step):
+
+    exist_profile = UserProfile.objects.filter(user=request.user)
+    if not exist_profile:
+        return HttpResponseRedirect('/account/basic/')
+    elif not exist_profile[0].completed:
+        return HttpResponseRedirect('/account/question/')
+
     ctx = {}
 
     if request.method == "POST":

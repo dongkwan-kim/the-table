@@ -18,7 +18,7 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = '__all__'
-        exclude = ['user', 'answers']
+        exclude = ['user', 'answers', 'completed']
 
     def header(self):
         return '자신에 대해 조금 더 자세히 알려주세요'

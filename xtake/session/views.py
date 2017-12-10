@@ -24,6 +24,12 @@ def create_account(request, step):
             form = UserProfileForm(request.POST)
             if form.is_valid():
                 profile = form.save(commit=False)
+
+                # Delete exist one
+                exist_profile = UserProfile.objects.filter(user=request.user)
+                if exist_profile:
+                    exist_profile[0].delete()
+
                 profile.user = request.user
                 profile.save()
             return HttpResponseRedirect('/account/question/')
@@ -32,6 +38,7 @@ def create_account(request, step):
             qnum = BinaryQuestion.objects.all().count()
             answers = [request.POST.get('q{0}'.format(i)) for i in range(qnum)]
             profile.set_answers(answers)
+            profile.completed = True
             profile.save()
             return HttpResponseRedirect('/table/pilot/0')
     else:

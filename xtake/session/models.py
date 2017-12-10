@@ -22,6 +22,7 @@ class BinaryQuestion(models.Model):
 class UserProfile(models.Model):
 
     user = models.ForeignKey(User)
+    completed = models.BooleanField(default=False)
 
     """
     [1] 박찬욱. "한국인 정치참여의 특징과 결정요인: 2004 년 조사결과 분석." (2005).
