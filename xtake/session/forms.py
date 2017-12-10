@@ -39,16 +39,6 @@ class QuestionForm(forms.Form):
             name = 'q{0}'.format(str(i))
             self.fields[name] = self.add_choice(bq)
 
-        consent_href = "https://drive.google.com/file/d/1dvI7f4speZJulb823hDwmuxk81hfRgZW/view"
-        consent_text = '<br/><a target="_blank" href="{0}">인간대상연구동의서</a>'.format(consent_href) +\
-                       '를 읽고 동의하신 후에 계정을 생성할 수 있습니다.'
-        self.fields['consent'] = forms.ChoiceField(
-            required=True,
-            widget=forms.RadioSelect(),
-            help_text=consent_text,
-            choices=[(0, '인간대상연구동의서를 읽었고, 이에 동의합니다.')]
-        )
-
     def add_choice(self, bq):
         return forms.ChoiceField(
                 choices=bq.get_choices(),
@@ -58,6 +48,29 @@ class QuestionForm(forms.Form):
 
     def header(self):
         return '두 문장 중 어느 쪽이 당신을 더 잘 설명하나요?'
+
+    def btext(self):
+        return '다음'
+
+
+class ConsentForm(forms.Form):
+
+    def __init__(self):
+
+        super(ConsentForm, self).__init__()
+
+        consent_href = "https://drive.google.com/file/d/1dvI7f4speZJulb823hDwmuxk81hfRgZW/view"
+        consent_text = '<a target="_blank" href="{0}">인간대상연구동의서</a>'.format(consent_href) +\
+                       '를 읽고 동의하신 후에 계정을 생성할 수 있습니다.'
+        self.fields['consent'] = forms.ChoiceField(
+            required=True,
+            widget=forms.RadioSelect(),
+            help_text=consent_text,
+            choices=[(0, '인간대상연구동의서를 읽었고, 이에 동의합니다.')]
+        )
+
+    def header(self):
+        return '인간대상연구동의'
 
     def btext(self):
         return '완료'

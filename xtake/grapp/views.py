@@ -26,8 +26,10 @@ def table(request, election, step):
     exist_profile = UserProfile.objects.filter(user=request.user)
     if not exist_profile:
         return HttpResponseRedirect('/account/basic/')
-    elif not exist_profile[0].completed:
+    elif not exist_profile[0].get_answers():
         return HttpResponseRedirect('/account/question/')
+    elif not exist_profile[0].completed:
+        return HttpResponseRedirect('/account/consent/')
 
     ctx = {}
 

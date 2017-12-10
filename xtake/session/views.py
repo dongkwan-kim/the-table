@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from session.forms import UserSignupForm, UserProfileForm, QuestionForm
+from session.forms import UserSignupForm, UserProfileForm, QuestionForm, ConsentForm
 from session.models import UserProfile, BinaryQuestion
 
 
@@ -10,6 +10,7 @@ def create_account(request, step):
 
     is_signup = (step == 'signup')
     is_basic = (step == 'basic')
+    is_question = (step == 'question')
 
     if request.method == "POST":
         if is_signup:
@@ -33,12 +34,17 @@ def create_account(request, step):
                 profile.user = request.user
                 profile.save()
             return HttpResponseRedirect('/account/question/')
-        else:
+        elif is_question:
             profile = UserProfile.objects.filter(user=request.user)[0]
             qnum = BinaryQuestion.objects.all().count()
             answers = [request.POST.get('q{0}'.format(i)) for i in range(qnum)]
             profile.set_answers(answers)
-            profile.completed = True
+            profile.save()
+            return HttpResponseRedirect('/account/consent/')
+        else:
+            profile = UserProfile.objects.filter(user=request.user)[0]
+            consent = (request.POST.get('consent') == '0')
+            profile.completed = consent
             profile.save()
             return HttpResponseRedirect('/table/pilot/0')
     else:
@@ -46,8 +52,10 @@ def create_account(request, step):
             form = UserSignupForm()
         elif is_basic:
             form = UserProfileForm()
-        else:
+        elif is_question:
             form = QuestionForm()
+        else:
+            form = ConsentForm()
 
         ctx = {
             'form': form,

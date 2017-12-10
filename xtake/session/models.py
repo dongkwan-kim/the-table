@@ -120,7 +120,10 @@ class UserProfile(models.Model):
         return str(self.user)
 
     def get_answers(self):
-        return [int(x) for x in self.answers.split(",")]
+        if self.answers == '':
+            return []
+        else:
+            return [int(x) for x in self.answers.split(",")]
 
     def set_answers(self, lst):
         self.answers = ",".join([str(x) for x in lst])
