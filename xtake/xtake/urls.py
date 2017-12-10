@@ -21,9 +21,15 @@ from session import views as ss_view
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^base/', gr_view.base),
+
+    # Basic
     url(r'^$', gr_view.home),
+    url(r'^about/', gr_view.about),
+
+    # Table
     url(r'^table/([^/]+)/([^/]+)', gr_view.table),
     url(r'^result/([^/]+)', gr_view.result),
 
+    # Session
     url(r'^account/([^/]+)', ss_view.create_account),
 ]
