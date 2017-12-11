@@ -23,13 +23,17 @@ def create_account(request, step):
             next_path = request.GET.get('next', '/')
             return HttpResponseRedirect(next_path)
         elif is_signup:
-            user = User.objects.create_user(
-                username=request.POST.get('user_id'),
-                password=request.POST.get('password'),
-            )
-            user.save()
-            login(request, user)
-            return HttpResponseRedirect('/account/basic/')
+            # Duplicated ID handling
+            try:
+                user = User.objects.create_user(
+                    username=request.POST.get('user_id'),
+                    password=request.POST.get('password'),
+                )
+                user.save()
+                login(request, user)
+                return HttpResponseRedirect('/account/basic/')
+            except:
+                return render(request, 'error.html', {'error': '중복된 아이디입니다'})
         elif is_basic:
             form = UserProfileForm(request.POST)
             if form.is_valid():
