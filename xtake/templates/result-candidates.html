@@ -18,6 +18,7 @@
 </div>
 
 {% for pair in promises %}
+<hr/>
 <div class="row">
     {% for p in pair.list %}
     <div class="col s6">
@@ -40,7 +41,7 @@
                 <!-- Other -->
                 {% if p.advantage_personas %}
                 <span class="persona-chip chip tooltipped green-text"
-                     data-position="top" data-delay="50" data-tooltip="{{p.advantage_personas}}">
+                     data-position="top" data-delay="50" data-tooltip="{{p.advantage_personas|safe}}">
                 {% else %}
                 <span class="chip grey-text">
                 {% endif %}
@@ -48,7 +49,7 @@
                 </span>
                 {% if p.disadvantage_personas %}
                 <span class="persona-chip chip tooltipped deep-orange-text"
-                     data-position="top" data-delay="50" data-tooltip="{{p.disadvantage_personas}}">
+                     data-position="top" data-delay="50" data-tooltip="{{p.disadvantage_personas|safe}}">
                 {% else %}
                 <span class="chip grey-text">
                 {% endif %}

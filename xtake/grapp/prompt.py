@@ -20,7 +20,6 @@ def save_user_response(request):
     selected_promise = Promise.objects.get(id=selected_promise_id)
 
     response_prompt = Prompt.objects.get(id=1)
-    print(request.POST)
     response_json = dict([(k, request.POST.getlist(k))
                           for k in UserResponseForm.get_fields()])
 

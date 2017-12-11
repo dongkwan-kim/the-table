@@ -10,6 +10,8 @@ import json
 
 def get_related_by_order(target_promise):
     r = target_promise.related.exclude(candidate=target_promise.candidate)
+    r = [x for x in r]
+    shuffle(r)
     return r
 
 
@@ -178,8 +180,8 @@ def get_result_candidates_ctx(candidates, responses, the_user):
                 e['persona_jaccard'] = adv_jaccard if adv_jaccard > disadv_jaccard else -disadv_jaccard
 
             # Refine personas to string
-            e['advantage_personas'] = ', '.join(set(eap))
-            e['disadvantage_personas'] = ', '.join(set(diseap))
+            e['advantage_personas'] = '<br/>'.join(set(eap))
+            e['disadvantage_personas'] = '<br/>'.join(set(diseap))
 
         promises.append(dict(promise_corr=1, list=pemt_list))
 

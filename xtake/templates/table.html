@@ -11,7 +11,7 @@
             <span>
                 <span class="pol-text">{{shown_cand.name}}</span> 후보가<br/>
                 <span class="teal-text promise-text tooltipped"
-                      data-position="top" data-delay="50" data-tooltip="{{shown_promise.description}}">
+                      data-position="top" data-delay="50" data-tooltip="{{shown_promise.description|safe}}">
                     {{shown_promise.title}}
                 </span>을(를)<br/>공약으로 제시했습니다
             </span>
@@ -44,7 +44,7 @@
                 <div class="collection">
                     {% for p in selected_promises %}
                     <a id="promise-{{p.id}}" href="#benefit-modal" class="collection-item modal-trigger tooltipped"
-                       data-position="top" data-delay="80" data-tooltip="{{p.description}}">
+                       data-position="top" data-delay="80" data-tooltip="{{p.description|safe}}">
                         {{p.title}}
                     </a>
                     {% endfor %}
