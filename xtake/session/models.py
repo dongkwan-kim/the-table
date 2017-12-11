@@ -105,12 +105,26 @@ class UserProfile(models.Model):
         (4, '매우 보수적'),
     )
 
+    CHILDREN_CHOICES = (
+        (None, '선택해주세요'),
+        (0, '자녀가 있다'),
+        (1, '자녀가 없다'),
+    )
+
+    DEPENDENT_CHOICES = (
+        (None, '선택해주세요'),
+        (0, '부양할 어르신이 있다'),
+        (1, '부양할 어르신이 없다'),
+    )
+
     age = models.IntegerField(choices=AGE_CHOICES, verbose_name='나이')
     gender = models.IntegerField(choices=GENDER_CHOICES, verbose_name='성별')
     occupation = models.IntegerField(choices=OCCUPATION_CHOICES, verbose_name='현재 직업')
     income = models.IntegerField(choices=INCOME_CHOICES, verbose_name='월소득')
     education = models.IntegerField(choices=EDUCATION_CHOICES, verbose_name='최종 학력')
     marriage = models.IntegerField(choices=MARRIAGE_CHOICES, verbose_name='결혼 상태')
+    children = models.IntegerField(choices=CHILDREN_CHOICES, verbose_name='자녀 유무')
+    dependent = models.IntegerField(choices=DEPENDENT_CHOICES, verbose_name='부양 의무')
     political_affinity = models.IntegerField(choices=POLITICAL_AFFINITY_CHOICES, verbose_name='정치 성향')
 
     # csv
