@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from session.forms import UserSignupForm, UserProfileForm, QuestionForm, ConsentForm
+from session.forms import UserSignupForm, UserProfileForm, QuestionForm, ConsentForm, UserPostProfileForm
 from session.models import UserProfile, BinaryQuestion
 
 
@@ -11,9 +11,18 @@ def create_account(request, step):
     is_signup = (step == 'signup')
     is_basic = (step == 'basic')
     is_question = (step == 'question')
+    is_survey = (step == 'survey')
 
     if request.method == "POST":
-        if is_signup:
+        if is_survey:
+            form = UserPostProfileForm(request.POST)
+            if form.is_valid():
+                post_profile = form.save(commit=False)
+                post_profile.user = request.user
+                post_profile.save()
+            next_path = request.GET.get('next', '/')
+            return HttpResponseRedirect(next_path)
+        elif is_signup:
             user = User.objects.create_user(
                 username=request.POST.get('user_id'),
                 password=request.POST.get('password'),
@@ -48,7 +57,9 @@ def create_account(request, step):
             profile.save()
             return HttpResponseRedirect('/table/pilot/0')
     else:
-        if is_signup:
+        if is_survey:
+            form = UserPostProfileForm()
+        elif is_signup:
             form = UserSignupForm()
         elif is_basic:
             form = UserProfileForm()
@@ -60,6 +71,7 @@ def create_account(request, step):
         ctx = {
             'form': form,
             'is_choice': not (is_signup or is_basic),
+            'is_radio': is_survey,
             'header': form.header(),
             'btext': form.btext(),
         }

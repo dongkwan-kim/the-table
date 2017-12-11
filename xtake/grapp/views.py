@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from grapp.step import *
 from grapp.prompt import *
+from session.models import *
 
 
 DEFAULT_RESULT = 'candidates'
@@ -54,6 +55,9 @@ def table(request, election, step):
 
 
 def result(request, election):
+
+    if election == 'pilot' and not UserPostProfile.objects.filter(user=request.user):
+        return HttpResponseRedirect('/account/survey/?next={0}'.format(request.get_raw_uri()))
 
     result_kind = request.GET.get('kind')
     template = 'result-{0}.html'.format(result_kind)

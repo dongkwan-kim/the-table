@@ -1,5 +1,5 @@
 from django import forms
-from session.models import UserProfile, BinaryQuestion
+from session.models import UserProfile, BinaryQuestion, UserPostProfile
 
 
 class UserSignupForm(forms.Form):
@@ -25,6 +25,26 @@ class UserProfileForm(forms.ModelForm):
 
     def btext(self):
         return '다음'
+
+
+class UserPostProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserPostProfile
+        fields = '__all__'
+        exclude = ['user']
+        widgets ={
+            'q1': forms.RadioSelect(),
+            'q2': forms.RadioSelect(),
+            'q3': forms.RadioSelect(),
+            'q4': forms.RadioSelect(),
+        }
+
+    def header(self):
+        return '주어진 문장에 대해 자신의 생각을 선택해주세요'
+
+    def btext(self):
+        return '제출'
 
 
 class QuestionForm(forms.Form):

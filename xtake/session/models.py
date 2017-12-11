@@ -249,3 +249,48 @@ class UserProfile(models.Model):
         for lst in self.get_iv_dict().values():
             empty += lst
         return empty
+
+
+class UserPostProfile(models.Model):
+    user = models.ForeignKey(User)
+
+    LIKERT_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+
+    q1 = models.IntegerField(
+        choices=LIKERT_CHOICES,
+        verbose_name='설문 1',
+        blank=False,
+        default=0,
+        help_text='세금을 내는 이상, 모든 공약의 실현에는 비용이 든다.<br/>\
+                   따라서 나에게 이득이 되지 않은 공약은 나에게 손해다'
+    )
+
+    q2 = models.IntegerField(
+        choices=LIKERT_CHOICES,
+        verbose_name='설문 2',
+        blank=False,
+        default=0,
+        help_text='나의 가족의 손해는 나의 손해다',
+    )
+
+    q3 = models.IntegerField(
+        choices=LIKERT_CHOICES,
+        verbose_name='설문 3',
+        blank=False,
+        default=0,
+        help_text='우리 사회의 손해는 나의 손해다',
+    )
+
+    q4 = models.IntegerField(
+        choices=LIKERT_CHOICES,
+        verbose_name='설문 4',
+        blank=False,
+        default=0,
+        help_text='자연의 손해는 나의 손해다',
+    )

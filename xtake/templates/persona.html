@@ -11,6 +11,19 @@
         {% csrf_token %}
         {% if not is_choice %}
             {{form.as_p}}
+        {% elif is_radio %}
+            {% for field in form %}
+            <div class="row center">
+                <h6>{{field.help_text|safe}}</h6>
+                <div class="chip">아니다</div>
+                {% for choice in field %}
+                <span class="radio-elem">{{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                </span>
+                {% endfor %}
+                <div class="chip">그렇다</div>
+            </div>
+            {% endfor %}
         {% else %}
             {% for field in form %}
             <p>{{field.help_text|safe}}</p>

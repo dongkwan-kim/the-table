@@ -1,5 +1,5 @@
 from django.contrib import admin
-from session.models import UserProfile, BinaryQuestion
+from session.models import UserProfile, BinaryQuestion, UserPostProfile
 
 
 def list_display_all(cls):
@@ -9,6 +9,11 @@ def list_display_all(cls):
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = list_display_all(UserProfile)
+
+
+@admin.register(UserPostProfile)
+class UserPostProfileAdmin(admin.ModelAdmin):
+    list_display = list_display_all(UserPostProfile)
 
 
 @admin.register(BinaryQuestion)
