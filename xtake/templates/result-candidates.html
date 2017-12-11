@@ -11,7 +11,7 @@
 <div class="row">
     {% for cand in candidates %}
     <div class="col m2 {% if forloop.counter == 1 %}offset-m4{% endif %} s6 center">
-        <img src="{{cand.profile}}" class="pol-img">
+        <img src="{{cand.profile}}" class="pol-img {{cand.shadow_class}}">
         {{cand.name}}
     </div>
     {% endfor %}
@@ -63,8 +63,46 @@
 </div>
 {% endfor %}
 
+<div class="fixed-action-btn">
+    <a href="#help-modal" class="btn-floating btn-large waves-effect waves-light teal modal-trigger">
+        <i class="material-icons">help</i>
+    </a>
+</div>
+
+<div id="help-modal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>결과 읽는 방법</h4>
+        <div class="row">
+            <div class="col s12">
+                <ul class="collection">
+                    <li class="collection-item">
+                        <p>각 후보의 편에 있는 공약이 해당 후보의 공약이며, 각 공약 쌍은 서로 연관된 주제를 다룹니다.</p>
+                    </li>
+                    <li class="collection-item">
+                        <span class="badge green white-text" style="float:none">나에게 이익</span>
+                        <span class="badge deep-orange white-text" style="float:none">나에게 손해</span>
+                        <p>해당 공약과 나의 이해관계를 나타냅니다.</p>
+                        <p>배지가 없으면, 아직 데이터가 부족한 공약입니다.</p>
+                    <li class="collection-item">
+                        <span class="chip green-text">이익을 보는 집단</span>
+                        <span class="chip deep-orange-text">손해를 보는 집단</span>
+                        <p>해당 공약을 통해 이익을 보는, 손해를 보는 집단을 소개합니다.</p>
+                        <p>글씨가 회색이라면, 아직 데이터가 부족한 공약입니다.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">닫기</a>
+    </div>
+</div>
+
 <script>
 alert("모든 과정이 끝났습니다. 감사합니다!");
+setTimeout(() => {
+    $("#help-modal").modal('open')
+}, 300)
 </script>
 
 {% endblock %}

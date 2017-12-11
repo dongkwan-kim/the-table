@@ -144,10 +144,6 @@
 </div>
 
 <script>
-$(document).ready(() => {
-    $('.modal').modal();
-});
-
 var promises = {{selected_promises_json|safe}};
 promises = promises.map((x) => JSON.parse(x));
 
