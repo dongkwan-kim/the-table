@@ -23,13 +23,7 @@
     <div class="col s6">
 
         <!-- Panel Color -->
-        {% if p.persona_jaccard is None or p.persona_jaccard == 0 %}
-        <div class="card blue-grey lighten-5">
-        {% elif p.persona_jaccard < 0 %}
-        <div class="card deep-orange lighten-5">
-        {% else %}
-        <div class="card green lighten-5">
-        {% endif %}
+        <div class="card {{p.promise.candidate.color_class}}">
 
             <div class="card-content">
                 <!-- Badge -->
