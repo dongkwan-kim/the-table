@@ -8,3 +8,13 @@ hr {
     border-top: 1px solid #ccc;
 }
 
+.blue-shadow {
+    box-shadow: 0 4px 5px 0 rgb(227, 242, 253),0 1px 10px 0 rgb(187, 222, 251),0 2px 4px -1px rgba(0,0,0,0.3);
+    webkit-box-shadow: 0 4px 5px 0 rgb(227, 242, 253),0 1px 10px 0 rgb(187, 222, 251),0 2px 4px -1px rgba(0,0,0,0.3);
+}
+
+.amber-shadow {
+    box-shadow: 0 4px 5px 0 rgb(255, 248, 225),0 1px 10px 0 rgb(255, 236, 179),0 2px 4px -1px rgba(0,0,0,0.3);
+    webkit-box-shadow: 0 4px 5px 0 rgb(255, 248, 225),0 1px 10px 0 rgb(255, 236, 179),0 2px 4px -1px rgba(0,0,0,0.3);
+}
+

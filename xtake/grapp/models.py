@@ -23,6 +23,7 @@ class Candidate(models.Model):
     region = models.CharField(max_length=20)
     profile = models.CharField(max_length=200)
     color_class = models.CharField(max_length=20)
+    shadow_class = models.CharField(max_length=20)
 
     def __str__(self):
         return "-".join([self.name, self.party, self.region])
