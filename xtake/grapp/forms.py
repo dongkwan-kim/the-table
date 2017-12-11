@@ -67,4 +67,5 @@ class UserResponseForm(forms.Form):
 
     def get_binary_questions(self):
         fields = self.profile.get_value('answers')
+        fields = [(i, "의견: " + s) for (i, s) in fields]
         return fields
