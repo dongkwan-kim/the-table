@@ -47,7 +47,7 @@ class QuestionForm(forms.Form):
             )
 
     def header(self):
-        return '두 문장 중 어느 쪽이 당신을 더 잘 설명하나요?'
+        return '두 문장 중 어느 쪽이 당신의 생각과 가까운가요?'
 
     def btext(self):
         return '다음'
