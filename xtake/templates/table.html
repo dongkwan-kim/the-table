@@ -67,7 +67,23 @@
             <hr/>
             {% csrf_token %}
             {% for field in response_prompt_form.visible_fields %}
-            {% if field.name == "stake" %}
+            {% if field.name == "support" %}
+            <div class="row">
+                <div class="col s12">
+                    <h5 class="help-text flow-text">
+                        {{field.help_text|safe}}
+                        <span class="is-required orange-text">*</span>
+                    </h5>
+                </div>
+                <div class="col s12">
+                     {% for choice in field %}
+                    <span class="radio-elem">{{ choice.tag }}
+                        <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% elif field.name == "stake" %}
             <div class="row">
                 <div class="col s12">
                     <h5 class="help-text flow-text">

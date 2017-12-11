@@ -11,9 +11,14 @@ class UserResponseForm(forms.Form):
         self.request = request
         self.profile = UserProfile.objects.get(user=request.user)
 
+        self.fields['support'] = forms.ChoiceField(
+            choices=self.get_supports(),
+            help_text="이 공약을 지지하시나요?",
+            widget=forms.RadioSelect()
+        )
         self.fields['stake'] = forms.ChoiceField(
             choices=self.get_stakes(),
-            help_text="이 공약을 지지하는지와는 상관없이,<br/> 이것이 직접적으로 당신에게 이익을 주나요, 손해를 주나요?",
+            help_text="이 공약을 지지하는지와는 상관없이,<br/> 이것이 현재의 당신에게 직접적으로 이익을 주나요, 손해를 주나요?",
             widget=forms.RadioSelect()
         )
         self.fields['demographics'] = forms.MultipleChoiceField(
@@ -39,6 +44,17 @@ class UserResponseForm(forms.Form):
             initial=-1,
             widget=forms.HiddenInput(),
         )
+
+    @classmethod
+    def get_fields(cls):
+        return ['support', 'stake', 'demographics', 'answers', 'open_ended', 'shown_promise', 'selected_promise']
+
+    def get_supports(self):
+        return [
+            (0, "지지한다"),
+            (1, "지지하지 않는다"),
+            (2, "잘 모르겠다"),
+        ]
 
     def get_stakes(self):
         return [(i, str(i)) for i in range(1, 6)]
