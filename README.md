@@ -1,2 +1,5 @@
 # the-table
- Identify the impact of providing contexts of stake between election promises and citizens
+Constructing Political Personas that Reflect Voters’ Interests in Election Promises
+
+## Abstract
+Although election promises are the main contents of many civic tech platforms, they only provide superficial information on them. This research suggests a system to collect the interests of voters with election promises. The goal of the system is the extraction of rich information about the relationship between persona features and election promises reducing the voter to the political persona. To achieve this, a controlled experiment targeted 22 users with the contents of the 19th presidential election was conducted. From the data collected in the experiment, it was able to determine which of the political persona features of voters had a statistically significant relationship with particular election promises. In addition, there were some features that had a statistical significance with certain promises, even though voters did not perceive whether the feature is related to the promises.
