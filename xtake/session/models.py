@@ -142,6 +142,13 @@ class UserProfile(models.Model):
     def set_answers(self, lst):
         self.answers = ",".join([str(x) for x in lst])
 
+    def get_key(self, name):
+        if name == 'answers':
+            answers = self.answers.split(',')
+            return answers
+        else:
+            return eval('self.{0}'.format(name))
+
     def get_value(self, name):
         if name == 'answers':
             questions = BinaryQuestion.objects.all()

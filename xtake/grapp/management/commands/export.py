@@ -13,7 +13,8 @@ class Command(BaseCommand):
 
     TYPE = [
         'profile',
-        'response',
+        'response_explicit',
+        'response_implicit',
     ]
 
     def add_arguments(self, parser):
@@ -26,12 +27,14 @@ class Command(BaseCommand):
                                          str(datetime.datetime.now()).replace(":", ""))
         if _type == 'profile':
             self.handle_profile(file_name)
-        elif _type == 'response':
-            self.handle_response(file_name)
+        elif _type == 'response_explicit':
+            self.handle_response(file_name, True)
+        elif _type == 'response_implicit':
+            self.handle_response(file_name, False)
         else:
             print("wrong type, use {0}".format(self.TYPE))
 
-    def handle_response(self, file_name):
+    def handle_response(self, file_name, user_answer_only):
 
         fields = ['id', 'user_id', 'object_id']
 
@@ -42,7 +45,7 @@ class Command(BaseCommand):
 
         p_ex = UserProfile.objects.all()[0]
         persona_field = [k for k in p_ex.get_persona_dict().keys()
-                   if k not in ['completed', 'answers']]
+                         if k not in ['completed', 'answers']]
 
         qnum_end = BinaryQuestion.objects.count() + 1
         persona_field += ['answers_{0}'.format(i) for i in range(1, qnum_end)]
@@ -51,6 +54,9 @@ class Command(BaseCommand):
 
         wtr = writer_csv(file_name, fields)
         for r in Response.objects.all():
+
+            profile = UserProfile.objects.get(user=r.user)
+
             d = {}
             d.update(r.__dict__)
 
@@ -60,15 +66,25 @@ class Command(BaseCommand):
 
             user_persona = text['demographics'] + text['answers']
             p = {}
-            for pf in persona_field:
-                if pf in user_persona:
-                    p[pf] = True
-                elif pf.startswith('answers_'):
-                    n = pf.split("_")[1]
-                    if n in user_persona:
-                        p[pf] = True
-                if pf not in p:
-                    p[pf] = False
+            if user_answer_only:
+                for pf in persona_field:
+                    if pf in user_persona:
+                        p[pf] = profile.get_key(pf)
+                    elif pf.startswith('answers_'):
+                        n = pf.split("_")[1]
+                        if n in user_persona:
+                            answers = profile.get_key('answers')
+                            p[pf] = answers[int(n) - 1]
+                    if pf not in p:
+                        p[pf] = False
+            else:
+                for pf in persona_field:
+                    if pf.startswith('answers_'):
+                        n = pf.split("_")[1]
+                        answers = profile.get_key('answers')
+                        p[pf] = answers[int(n) - 1]
+                    else:
+                        p[pf] = profile.get_key(pf)
 
             d.update(p)
 
